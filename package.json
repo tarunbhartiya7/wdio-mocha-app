@@ -1,5 +1,5 @@
 {
-  "name": "WebdriverIO",
+  "name": "wdio-app",
   "type": "module",
   "devDependencies": {
     "@wdio/cli": "^9.5.2",
@@ -10,6 +10,6 @@
     "wdio-wait-for": "^3.0.11"
   },
   "scripts": {
-    "wdio": "sudo wdio run ./wdio.conf.js"
+    "wdio": "wdio run ./wdio.conf.js"
   }
 }
