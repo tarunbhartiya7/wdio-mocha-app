@@ -33,7 +33,7 @@ describe("UI Controls", () => {
     await expect(adminBtn).not.toBeChecked();
   });
 
-  it.only("should select correct dropdown value", async () => {
+  it("should select correct dropdown value", async () => {
     const dropdown = await $("select");
 
     await browser.url("https://rahulshettyacademy.com/loginpagePractise/");
@@ -42,5 +42,29 @@ describe("UI Controls", () => {
 
     await dropdown.selectByVisibleText("Consultant");
     await expect(dropdown).toHaveValue("consult");
+  });
+
+  it("should handle dynamic dropdown", async () => {
+    await browser.url("https://rahulshettyacademy.com/AutomationPractice/");
+    const dropdown = await $("#autocomplete");
+    await dropdown.setValue("ind");
+
+    await $(".ui-menu-item").waitForDisplayed();
+    const dropdownOptions = await $$(".ui-menu-item div");
+    for (let i = 0; i < dropdownOptions.length; i++) {
+      if ((await dropdownOptions[i].getText()) === "India") {
+        await dropdownOptions[i].click();
+        break;
+      }
+    }
+    await expect(dropdown).toHaveValue("India");
+  });
+
+  it("should select the correct checkbox", async () => {
+    await browser.url("https://rahulshettyacademy.com/AutomationPractice/");
+    await $("#checkBoxOption2").click();
+    await browser.pause(2000);
+    await expect(await $("#checkBoxOption2")).toBeChecked();
+    // await browser.saveScreenshot("./screenshots/checkbox.png");
   });
 });
